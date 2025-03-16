@@ -1,0 +1,57 @@
+{
+    "documents": [
+        {
+            "id": "id__933",
+            "sentiment": "positive",
+            "confidenceScores": {
+                "positive": 0.58,
+                "neutral": 0.39,
+                "negative": 0.03
+            },
+            "sentences": [
+                {
+                    "sentiment": "positive",
+                    "confidenceScores": {
+                        "positive": 0.58,
+                        "neutral": 0.39,
+                        "negative": 0.03
+                    },
+                    "offset": 0,
+                    "length": 51,
+                    "text": "The product arrived within the expected timeframe. ",
+                    "targets": [],
+                    "assessments": []
+                },
+                {
+                    "sentiment": "neutral",
+                    "confidenceScores": {
+                        "positive": 0.11,
+                        "neutral": 0.73,
+                        "negative": 0.17
+                    },
+                    "offset": 51,
+                    "length": 65,
+                    "text": "It works as described, but I didn't notice anything exceptional. ",
+                    "targets": [],
+                    "assessments": []
+                },
+                {
+                    "sentiment": "neutral",
+                    "confidenceScores": {
+                        "positive": 0,
+                        "neutral": 1,
+                        "negative": 0
+                    },
+                    "offset": 116,
+                    "length": 53,
+                    "text": "I'm still testing it to form a more concrete opinion.",
+                    "targets": [],
+                    "assessments": []
+                }
+            ],
+            "warnings": []
+        }
+    ],
+    "errors": [],
+    "modelVersion": "2025-01-01"
+}
