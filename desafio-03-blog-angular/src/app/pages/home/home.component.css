@@ -1,0 +1,12 @@
+.wallpaper {
+    background-image: url(/assets/batman-wallpaper.jpg);
+    background-size: cover;
+    height: 625px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between
+}
+
+.content {
+    background-color: #f3f3f3;
+}
