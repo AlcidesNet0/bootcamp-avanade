@@ -1,6 +1,6 @@
 FROM maven:3.8.4-openjdk-17-slim AS build
 
-COPY . /app
+COPY desafio-01-api-rest-spring-boot /app
 
 WORKDIR /app
 
