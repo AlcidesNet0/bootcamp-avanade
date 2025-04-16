@@ -1,7 +1,7 @@
 ## Board de Tarefas em Java
 
 [![Java](https://img.shields.io/badge/Java-17-orange.svg?style=flat-square&logo=java)](https://www.oracle.com/java/)
-[![Maven](https://img.shields.io/badge/Maven-3.x-blue.svg?style=flat-square&logo=apache-maven)](https://maven.apache.org/)
+[![Gradle](https://img.shields.io/badge/Gradle-8.x-blue.svg?style=flat-square&logo=gradle)](https://gradle.org/)
 [![MySQL](https://img.shields.io/badge/MySQL-8.x-blue.svg?style=flat-square&logo=mysql)](https://www.mysql.com/)
 [![Liquibase](https://img.shields.io/badge/Liquibase-4.x-blueviolet.svg?style=flat-square&logo=liquibase)](https://www.liquibase.org/)
 [![Lombok](https://img.shields.io/badge/Lombok-1.18.x-green.svg?style=flat-square&logo=projectlombok)](https://projectlombok.org/)
