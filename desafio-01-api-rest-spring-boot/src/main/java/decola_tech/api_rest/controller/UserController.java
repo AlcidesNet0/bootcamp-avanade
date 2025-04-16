@@ -6,6 +6,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import decola_tech.api_rest.domain.models.User;
 import decola_tech.api_rest.service.UserService;
+import jakarta.validation.Valid;
 
 import java.net.URI;
 
@@ -29,11 +30,11 @@ public class UserController {
     public ResponseEntity<User> findById(@PathVariable Long id) {
         var user = userService.findById(id);
 
-        return ResponseEntity.ok(user);
+        return user.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    public ResponseEntity<User> create(@RequestBody User userToCreate) {
+    public ResponseEntity<User> create(@RequestBody @Valid User userToCreate) {
         var userCreated = userService.create(userToCreate);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(userCreated.getId()).toUri();
