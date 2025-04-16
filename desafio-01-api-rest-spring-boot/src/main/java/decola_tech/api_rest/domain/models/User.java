@@ -10,6 +10,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 
 import jakarta.persistence.OneToOne;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity(name = "bank_user")
 public class User {
@@ -18,12 +20,15 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "O nome é obrigatório")
     private String name;
 
+    @NotNull(message = "A conta é obrigatória")
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "account_id")
     private Account account;
 
+    @NotNull(message = "O cartão é obrigatório")
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "card_id")
     private Card card;
