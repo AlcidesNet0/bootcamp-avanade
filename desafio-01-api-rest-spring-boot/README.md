@@ -18,7 +18,6 @@ Esta API REST desenvolvida com Spring Boot tem como objetivo abstrair a interfac
 * **Validação de Dados:** Implementação de validação para os dados de entrada durante a criação de usuários, garantindo a integridade dos dados.
 * **Tratamento de Erros:** Tratamento robusto de erros, incluindo:
     * Retorno de código de status `404 Not Found` quando um recurso (usuário) não é encontrado.
-    * Retorno de código de status `400 Bad Request` para requisições inválidas (falha na validação).
     * Retorno de código de status `409 Conflict` ao tentar criar um usuário com um ID já existente.
     * Tratamento de erros internos do servidor com código de status `500 Internal Server Error`.
 
@@ -32,7 +31,6 @@ Esta API REST desenvolvida com Spring Boot tem como objetivo abstrair a interfac
 * **PostgreSQL:** Banco de dados relacional utilizado para persistir os dados da aplicação.
 * **Maven:** Ferramenta de gerenciamento de dependências e construção do projeto.
 * **Jakarta Bean Validation:** API para validação de beans.
-* **SLF4j e Logback:** Framework de logging para a aplicação.
 
 ## Pré-requisitos
 
@@ -66,7 +64,6 @@ Esta API REST desenvolvida com Spring Boot tem como objetivo abstrair a interfac
             hibernate:
               ddl-auto: create # ATENÇÃO: Em produção, considere usar 'update', 'validate' ou uma ferramenta de migração
         ```
-        **Atenção:** A propriedade `spring.jpa.hibernate.ddl-auto: create` fará com que o Hibernate recrie o esquema do banco de dados a cada inicialização. Em ambientes de produção, é altamente recomendado usar uma ferramenta de migração de banco de dados (como Flyway ou Liquibase) ou alterar essa propriedade para `update` ou `validate`.
 
 ## Execução da Aplicação
 
@@ -98,32 +95,11 @@ Esta API REST desenvolvida com Spring Boot tem como objetivo abstrair a interfac
 
 * **Tratamento de `NoSuchElementException`:** O `UserController` agora utiliza `Optional` e retorna `ResponseEntity.notFound().build()` para requisições de usuários com IDs inexistentes, resultando em um código de status HTTP `404`.
 * **Validação com `@Valid`:** O método `create` no `UserController` utiliza a anotação `@Valid` para acionar a validação das propriedades da entidade `User` definidas com as anotações do Jakarta Bean Validation (`@NotBlank`, `@NotNull`).
-* **`GlobalExceptionHandler`:** Uma classe `@RestControllerAdvice` foi implementada para centralizar o tratamento de exceções:
+* **`GlobalExceptionHandler`:** A classe foi implementada para centralizar o tratamento de exceções:
     * `NoSuchElementException`: Retorna `404 Not Found`.
     * `IllegalArgumentException`: Retorna `400 Bad Request` (ou `409 Conflict` para tentativa de criar usuário com ID existente).
-    * `MethodArgumentNotValidException`: Retorna `400 Bad Request` com um mapa detalhando os erros de validação por campo.
     * `Throwable`: Retorna `500 Internal Server Error` para exceções não tratadas, com logging do erro.
 
-## Desafios Encontrados
-
-Um dos principais desafios durante o desenvolvimento foi a realização do deploy da aplicação. Isso envolveu:
-
-* Entendimento dos requisitos de ambiente para uma aplicação Spring Boot com banco de dados PostgreSQL.
-* Configuração correta das variáveis de ambiente no ambiente de hospedagem, especialmente para a URL, usuário e senha do banco de dados.
-* Resolução de possíveis conflitos de porta com outros serviços em execução no servidor.
-* Garantia de que o ciclo de vida da aplicação Spring Boot fosse gerenciado corretamente pelo ambiente de deploy.
-* Aprendizado específico sobre a plataforma de hospedagem utilizada para garantir a inicialização e o funcionamento contínuo da aplicação.
-
-## Próximos Passos (Melhorias Futuras)
-
-* Implementação de endpoints para atualizar e excluir usuários.
-* Adição de funcionalidades para gerenciar contas e cartões separadamente.
-* Implementação de autenticação e autorização para proteger a API.
-* Criação de testes unitários e de integração para aumentar a cobertura e a confiabilidade do código.
-* Utilização de DTOs (Data Transfer Objects) para desacoplar a camada de apresentação da camada de domínio.
-* Implementação de paginação e filtragem para listagens de recursos (se aplicável).
-* Documentação da API utilizando o OpenAPI (Swagger).
-* Implementação de mecanismos de logging mais detalhados e monitoramento da aplicação.
 
 ## Licença
 
