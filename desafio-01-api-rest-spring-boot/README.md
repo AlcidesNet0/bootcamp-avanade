@@ -1,0 +1,134 @@
+# API REST para Abstração de Interface Bancária (Estilo Nubank)
+
+[![Java](https://img.shields.io/badge/Java-17-orange.svg)](https://www.oracle.com/java/)
+[![Spring Boot](https://img.shields.io/badge/Spring_Boot-3.x-green.svg)](https://spring.io/projects/spring-boot)
+[![Maven](https://img.shields.io/badge/Maven-3.x-blue.svg)](https://maven.apache.org/)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-14+-blue.svg)](https://www.postgresql.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+## Descrição do Projeto
+
+Esta API REST desenvolvida com Spring Boot tem como objetivo abstrair a interface de um aplicativo bancário moderno, inspirada em funcionalidades essenciais como as encontradas no Nubank. O projeto fornece uma camada de comunicação padronizada através de requisições HTTP para interagir com informações de usuários, contas e cartões bancários.
+
+## Funcionalidades Atuais
+
+* **Gerenciamento de Usuários:**
+    * `GET /users/{id}`: Retorna os detalhes de um usuário específico com base no seu ID.
+    * `POST /users`: Permite a criação de um novo usuário, incluindo informações de conta e cartão associados.
+* **Validação de Dados:** Implementação de validação para os dados de entrada durante a criação de usuários, garantindo a integridade dos dados.
+* **Tratamento de Erros:** Tratamento robusto de erros, incluindo:
+    * Retorno de código de status `404 Not Found` quando um recurso (usuário) não é encontrado.
+    * Retorno de código de status `400 Bad Request` para requisições inválidas (falha na validação).
+    * Retorno de código de status `409 Conflict` ao tentar criar um usuário com um ID já existente.
+    * Tratamento de erros internos do servidor com código de status `500 Internal Server Error`.
+
+## Tecnologias Utilizadas
+
+* **Java:** Linguagem de programação principal.
+* **Spring Boot:** Framework para desenvolvimento rápido de aplicações Java com configuração mínima.
+* **Spring Web:** Módulo do Spring para construção de aplicações web e APIs RESTful.
+* **Spring Data JPA:** Simplifica o acesso e a persistência de dados em bancos de dados relacionais utilizando o JPA (Java Persistence API).
+* **Hibernate:** Implementação do JPA utilizada pelo Spring Data JPA.
+* **PostgreSQL:** Banco de dados relacional utilizado para persistir os dados da aplicação.
+* **Maven:** Ferramenta de gerenciamento de dependências e construção do projeto.
+* **Jakarta Bean Validation:** API para validação de beans.
+* **SLF4j e Logback:** Framework de logging para a aplicação.
+
+## Pré-requisitos
+
+* **Java Development Kit (JDK):** Versão 17 ou superior instalada.
+* **Maven:** Versão 3.x instalada.
+* **PostgreSQL:** Uma instância do PostgreSQL em execução (local ou remota).
+
+## Configuração do Projeto
+
+1.  **Clonar o Repositório:**
+    ```bash
+    git clone <URL_DO_SEU_REPOSITORIO>
+    cd bootcamp-avanade/desafio-01-api-rest-spring-boot
+    ```
+
+2.  **Configurar o Banco de Dados:**
+    * Crie um banco de dados PostgreSQL para a aplicação.
+    * Configure as credenciais de acesso ao banco de dados no arquivo `src/main/resources/application-prd.yml`. É recomendado utilizar variáveis de ambiente para informações sensíveis em ambientes de produção.
+        ```yaml
+        spring:
+          datasource:
+            url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/seu_banco_de_dados}
+            username: ${DATABASE_USERNAME:seu_usuario}
+            password: ${DATABASE_PASSWORD:sua_senha}
+            driver-class-name: org.postgresql.Driver
+          jpa:
+            database: postgresql
+            properties:
+              hibernate:
+                dialect: org.hibernate.dialect.PostgreSQLDialect
+            hibernate:
+              ddl-auto: create # ATENÇÃO: Em produção, considere usar 'update', 'validate' ou uma ferramenta de migração
+        ```
+        **Atenção:** A propriedade `spring.jpa.hibernate.ddl-auto: create` fará com que o Hibernate recrie o esquema do banco de dados a cada inicialização. Em ambientes de produção, é altamente recomendado usar uma ferramenta de migração de banco de dados (como Flyway ou Liquibase) ou alterar essa propriedade para `update` ou `validate`.
+
+## Execução da Aplicação
+
+1.  **Compilar e Executar com Maven:**
+    ```bash
+    mvn spring-boot:run -Dspring-boot.run.profiles=prd
+    ```
+    O perfil `prd` será ativado para utilizar as configurações de produção definidas em `application-prd.yml`.
+
+2.  **Acessar a API:**
+    A API estará disponível por padrão na porta `8080`. Você pode interagir com os endpoints utilizando ferramentas como `curl`, Postman ou Insomnia.
+
+    * **Buscar Usuário:** `GET http://localhost:8080/users/{id}`
+    * **Criar Usuário (Exemplo de Body em JSON):**
+        ```json
+        {
+          "name": "João da Silva",
+          "account": {
+            "balance": 1000.50
+          },
+          "card": {
+            "bill": 50.20,
+            "limit": 500.00
+          }
+        }
+        ```
+
+## Melhorias Implementadas (Detalhado)
+
+* **Tratamento de `NoSuchElementException`:** O `UserController` agora utiliza `Optional` e retorna `ResponseEntity.notFound().build()` para requisições de usuários com IDs inexistentes, resultando em um código de status HTTP `404`.
+* **Validação com `@Valid`:** O método `create` no `UserController` utiliza a anotação `@Valid` para acionar a validação das propriedades da entidade `User` definidas com as anotações do Jakarta Bean Validation (`@NotBlank`, `@NotNull`).
+* **`GlobalExceptionHandler`:** Uma classe `@RestControllerAdvice` foi implementada para centralizar o tratamento de exceções:
+    * `NoSuchElementException`: Retorna `404 Not Found`.
+    * `IllegalArgumentException`: Retorna `400 Bad Request` (ou `409 Conflict` para tentativa de criar usuário com ID existente).
+    * `MethodArgumentNotValidException`: Retorna `400 Bad Request` com um mapa detalhando os erros de validação por campo.
+    * `Throwable`: Retorna `500 Internal Server Error` para exceções não tratadas, com logging do erro.
+
+## Desafios Encontrados
+
+Um dos principais desafios durante o desenvolvimento foi a realização do deploy da aplicação. Isso envolveu:
+
+* Entendimento dos requisitos de ambiente para uma aplicação Spring Boot com banco de dados PostgreSQL.
+* Configuração correta das variáveis de ambiente no ambiente de hospedagem, especialmente para a URL, usuário e senha do banco de dados.
+* Resolução de possíveis conflitos de porta com outros serviços em execução no servidor.
+* Garantia de que o ciclo de vida da aplicação Spring Boot fosse gerenciado corretamente pelo ambiente de deploy.
+* Aprendizado específico sobre a plataforma de hospedagem utilizada para garantir a inicialização e o funcionamento contínuo da aplicação.
+
+## Próximos Passos (Melhorias Futuras)
+
+* Implementação de endpoints para atualizar e excluir usuários.
+* Adição de funcionalidades para gerenciar contas e cartões separadamente.
+* Implementação de autenticação e autorização para proteger a API.
+* Criação de testes unitários e de integração para aumentar a cobertura e a confiabilidade do código.
+* Utilização de DTOs (Data Transfer Objects) para desacoplar a camada de apresentação da camada de domínio.
+* Implementação de paginação e filtragem para listagens de recursos (se aplicável).
+* Documentação da API utilizando o OpenAPI (Swagger).
+* Implementação de mecanismos de logging mais detalhados e monitoramento da aplicação.
+
+## Licença
+
+Este projeto está sob a licença [MIT](https://opensource.org/licenses/MIT).
+
+---
+
+**Sinta-se à vontade para contribuir com este projeto!**
