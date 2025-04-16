@@ -1,59 +1,82 @@
-# Desafio05CloneBuzzfeed
+# Clone do BuzzFeed em Angular
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.4.
+[![Angular CLI](https://img.shields.io/badge/Angular%20CLI-v17.x-DD0031?style=flat-square&logo=angular&logoColor=white)](https://angular.io/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-%23007ACC.svg?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![HTML5](https://img.shields.io/badge/HTML5-%23E34F26.svg?style=flat-square&logo=html5&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/HTML)
+[![CSS3](https://img.shields.io/badge/CSS3-%231572B6.svg?style=flat-square&logo=css3&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/CSS)
+[![Node.js](https://img.shields.io/badge/Node.js-v18.x-339933?style=flat-square&logo=nodedotjs&logoColor=white)](https://nodejs.org/)
 
-## Development server
 
-To start a local development server, run:
+Este projeto consiste em um clone simplificado do BuzzFeed, desenvolvido utilizando o framework Angular. Ele implementa a funcionalidade básica de um quiz interativo, apresentando perguntas e opções de resposta, e exibindo um resultado final baseado nas escolhas do usuário.
 
-```bash
-ng serve
-```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## Tecnologias Utilizadas
 
-## Code scaffolding
+* **Angular CLI:** 17.x (ou a versão utilizada no projeto)
+* **TypeScript:** Linguagem de programação principal
+* **HTML:** Estrutura da página
+* **CSS:** Estilização da aplicação
+* **Node.js:** Ambiente de execução JavaScript
+* **npm:** Gerenciador de pacotes
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Pré-requisitos
 
-```bash
-ng generate component component-name
-```
+Certifique-se de ter o Node.js e o npm (ou yarn) instalados em sua máquina.
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+* **Node.js:** [https://nodejs.org/](https://nodejs.org/)
+* **npm:** Instalado automaticamente com o Node.js
+* **Angular CLI:** Instale globalmente com o comando:
+    ```bash
+    npm install -g @angular/cli
+    ```
 
-```bash
-ng generate --help
-```
+## Como Executar o Projeto
 
-## Building
+1.  **Clone o repositório:**
+    ```bash
+    git clone [https://docs.github.com/articles/referencing-and-citing-content](https://docs.github.com/articles/referencing-and-citing-content)
+    cd [nome do seu repositório]
+    ```
 
-To build the project run:
+2.  **Instale as dependências:**
+    ```bash
+    npm install
+    # ou
+    yarn install
+    ```
 
-```bash
-ng build
-```
+3.  **Execute o servidor de desenvolvimento:**
+    ```bash
+    ng serve -o
+    # ou
+    npm start
+    # ou
+    yarn start
+    ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+    Isso iniciará o servidor de desenvolvimento do Angular e abrirá o aplicativo automaticamente no seu navegador (geralmente em `http://localhost:4200`).
 
-## Running unit tests
+## Funcionalidades Implementadas
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+* **Exibição de um título para o quiz.**
+* **Apresentação de perguntas sequenciais.**
+* **Listagem de opções de resposta para cada pergunta.**
+* **Captura da escolha do jogador.**
+* **Navegação para a próxima pergunta após a escolha.**
+* **Cálculo do resultado final com base nas respostas.**
+* **Exibição do resultado final do quiz.**
 
-```bash
-ng test
-```
+## Próximos Passos (Opcional)
 
-## Running end-to-end tests
+* Implementar diferentes tipos de quizzes (personalidade, conhecimento, etc.).
+* Adicionar um sistema de pontuação.
+* Melhorar a interface do usuário e a experiência do usuário (UX).
+* Integrar com uma API para buscar perguntas dinamicamente.
+* Adicionar funcionalidades de compartilhamento em redes sociais.
+* Implementar testes unitários e de integração.
 
-For end-to-end (e2e) testing, run:
+## Contribuição
 
-```bash
-ng e2e
-```
+Sinta-se à vontade para contribuir com este projeto. Você pode abrir issues para relatar bugs ou sugerir melhorias, ou enviar pull requests com suas modificações.
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+---
