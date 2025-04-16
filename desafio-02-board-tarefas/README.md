@@ -25,7 +25,7 @@ Este projeto implementa um board de tarefas em Java, permitindo o gerenciamento 
 ### Tecnologias Utilizadas
 
 * **Java:** Linguagem de programação principal.
-* **Maven:** Ferramenta de build e gerenciamento de dependências.
+* **Gradle:** Ferramenta de build e gerenciamento de dependências.
 * **MySQL:** Banco de dados relacional para persistência dos dados.
 * **JDBC:** API Java para interação com o banco de dados MySQL.
 * **Liquibase:** Ferramenta para gerenciamento de migrações de schema do banco de dados.
@@ -34,7 +34,7 @@ Este projeto implementa um board de tarefas em Java, permitindo o gerenciamento 
 ### Pré-requisitos
 
 * **Java Development Kit (JDK):** Versão 17 ou superior instalada.
-* **Maven:** Versão 3.x instalada.
+* **Gradle:**
 * **MySQL:** Servidor MySQL instalado e em execução.
 * **Configuração do Banco de Dados:** Um banco de dados chamado `board` deve existir no servidor MySQL, com um usuário `board` e senha `board` configurados com as permissões necessárias para acessar e modificar o banco de dados.
 
