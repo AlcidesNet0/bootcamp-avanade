@@ -1,6 +1,7 @@
 package decola_tech.api_rest.service.impl;
 
-import java.util.NoSuchElementException;
+
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -18,14 +19,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findById(Long id) {
-        return userRepository.findById(id).orElseThrow(NoSuchElementException::new);
+    public Optional<User> findById(Long id) {
+        return userRepository.findById(id);
     }
 
     @Override
     public User create(User userToCreate) {
         if(userToCreate.getId() != null &&  userRepository.existsById(userToCreate.getId())) {
-            throw new IllegalArgumentException("O usuário já existe!");
+            throw new IllegalArgumentException("Já existe um usuário com esse ID: " + userToCreate.getId());
         }
 
         return userRepository.save(userToCreate);
